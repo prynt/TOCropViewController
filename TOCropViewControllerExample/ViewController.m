@@ -39,6 +39,7 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
 {
     TOCropViewController *cropController = [[TOCropViewController alloc] initWithCroppingStyle:self.croppingStyle image:image];
+    cropController.cropView.alwaysTranslucent = true;
     cropController.delegate = self;
     
     // -- Uncomment these if you want to test out restoring to a previous crop setting --

@@ -133,6 +133,11 @@ typedef NS_ENUM(NSInteger, TOCropViewCroppingStyle) {
 @property (nonatomic, assign) BOOL gridOverlayHidden;
 
 /**
+ Leaves the translucency effect always on
+ */
+@property (nonatomic, assign) BOOL alwaysTranslucent;
+
+/**
  Create a default instance of the crop view with the supplied image
  */
 - (nonnull instancetype)initWithImage:(nonnull UIImage *)image;
