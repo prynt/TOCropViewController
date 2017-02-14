@@ -716,8 +716,10 @@ typedef NS_ENUM(NSInteger, TOCropViewOverlayEdge) {
 
 - (void)toggleTranslucencyViewVisible:(BOOL)visible
 {
-    
-    if (_alwaysTranslucent == true) {
+    if (_showOverlayOnly == true) {
+        [self.translucencyView setAlpha:0.0];
+        [(UIVisualEffectView *)self.translucencyView setEffect:nil];
+    } else if (_alwaysTranslucent == true) {
         [self.translucencyView setAlpha:0.5];
          [(UIVisualEffectView *)self.translucencyView setEffect:self.translucencyEffect];
     } else {
@@ -1180,6 +1182,24 @@ typedef NS_ENUM(NSInteger, TOCropViewOverlayEdge) {
     
     [self toggleTranslucencyViewVisible:_alwaysTranslucent];
 }
+    
+-(void)setShowOverlayOnly:(BOOL)showOverlayOnly
+{
+    if (showOverlayOnly == _showOverlayOnly) {
+            return;
+    }
+        
+    _showOverlayOnly = showOverlayOnly;
+    
+    if (_showOverlayOnly ==  true) {
+        _overlayView.backgroundColor = [self.backgroundColor colorWithAlphaComponent:0.87f];
+        [self toggleTranslucencyViewVisible:_showOverlayOnly];
+    } else {
+        _overlayView.backgroundColor = [self.backgroundColor colorWithAlphaComponent:0.35f];
+        [self toggleTranslucencyViewVisible:_showOverlayOnly];
+    }
+}
+
 
 #pragma mark - Editing Mode -
 - (void)startEditing
