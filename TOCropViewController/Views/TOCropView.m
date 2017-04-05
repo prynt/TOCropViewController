@@ -1317,12 +1317,7 @@ typedef NS_ENUM(NSInteger, TOCropViewOverlayEdge) {
 
 - (void)setAspectRatio:(CGSize)aspectRatio
 {
-    [self setAspectRatio:aspectRatio animated:NO];
-}
-
-- (void)setAspectRatio:(CGSize)aspectRatio animated:(BOOL)animated
-{
-    [self setAspectRatio:aspectRatio animated: animated completion: nil];
+    [self setAspectRatio:aspectRatio animated:NO completion: nil];
 }
 
 - (void)setAspectRatio:(CGSize)aspectRatio animated:(BOOL)animated completion:(void (^ __nullable)())completion

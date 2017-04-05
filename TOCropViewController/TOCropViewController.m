@@ -529,7 +529,7 @@
         aspectRatio.height = width;
     }
     
-    [self.cropView setAspectRatio:aspectRatio animated:animated];
+    [self.cropView setAspectRatio:aspectRatio animated:animated completion: nil];
 }
 
 - (void)rotateCropViewClockwise

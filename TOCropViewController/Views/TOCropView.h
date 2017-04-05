@@ -181,14 +181,6 @@ typedef NS_ENUM(NSInteger, TOCropViewCroppingStyle) {
  
  @param aspectRatio The aspect ratio (For example 16:9 is 16.0f/9.0f). 'CGSizeZero' will reset it to the image's own ratio
  @param animated Whether the locking effect is animated
- */
-- (void)setAspectRatio:(CGSize)aspectRatio animated:(BOOL)animated;
-
-/**
- Changes the aspect ratio of the crop box to match the one specified
- 
- @param aspectRatio The aspect ratio (For example 16:9 is 16.0f/9.0f). 'CGSizeZero' will reset it to the image's own ratio
- @param animated Whether the locking effect is animated
  @param completion a completion block to be called when the locking is complete
  */
 - (void)setAspectRatio:(CGSize)aspectRatio animated:(BOOL)animated completion:(void (^ __nullable)())completion;
