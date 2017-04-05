@@ -1322,6 +1322,11 @@ typedef NS_ENUM(NSInteger, TOCropViewOverlayEdge) {
 
 - (void)setAspectRatio:(CGSize)aspectRatio animated:(BOOL)animated
 {
+    [self setAspectRatio:aspectRatio animated: animated completion: nil];
+}
+
+- (void)setAspectRatio:(CGSize)aspectRatio animated:(BOOL)animated completion:(void (^ __nullable)())completion
+{
     _aspectRatio = aspectRatio;
     
     // Will be executed automatically when added to a super view
@@ -1396,6 +1401,7 @@ typedef NS_ENUM(NSInteger, TOCropViewOverlayEdge) {
     
     if (animated == NO) {
         translateBlock();
+        completion();
         return;
     }
     
@@ -1405,7 +1411,9 @@ typedef NS_ENUM(NSInteger, TOCropViewOverlayEdge) {
           initialSpringVelocity:0.7f
                         options:UIViewAnimationOptionBeginFromCurrentState
                      animations:translateBlock
-                     completion:nil];
+                     completion:^(BOOL finished){
+                         if (finished) { completion(); }
+                     }];
 }
 
 - (void)rotateImageNinetyDegreesAnimated:(BOOL)animated
