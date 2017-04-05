@@ -1435,7 +1435,9 @@ typedef NS_ENUM(NSInteger, TOCropViewOverlayEdge) {
     
     if (animated == NO) {
         translateBlock();
-        completion();
+        if (completion != nil) {
+            completion();
+        }
         return;
     }
     
@@ -1446,7 +1448,7 @@ typedef NS_ENUM(NSInteger, TOCropViewOverlayEdge) {
                         options:UIViewAnimationOptionBeginFromCurrentState
                      animations:translateBlock
                      completion:^(BOOL finished){
-                         if (finished) { completion(); }
+                         if (finished && completion != nil) { completion(); }
                      }];
 }
 
