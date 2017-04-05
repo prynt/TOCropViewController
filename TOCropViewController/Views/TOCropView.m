@@ -718,12 +718,22 @@ typedef NS_ENUM(NSInteger, TOCropViewOverlayEdge) {
 
 - (void)toggleTranslucencyViewVisible:(BOOL)visible
 {
-    if (self.dynamicBlurEffect == NO) {
-        self.translucencyView.alpha = visible ? 1.0f : 0.0f;
+    if (_showOverlayOnly == true) {
+        [self.translucencyView setAlpha:0.0];
+        [(UIVisualEffectView *)self.translucencyView setEffect:nil];
+    } else if (_alwaysTranslucent == true) {
+        [self.translucencyView setAlpha:0.5];
+         [(UIVisualEffectView *)self.translucencyView setEffect:self.translucencyEffect];
+    } else {
+        if (self.dynamicBlurEffect == NO) {
+            self.translucencyView.alpha = visible ? 1.0f : 0.0f;
+        }
+        else {
+            [(UIVisualEffectView *)self.translucencyView setEffect:visible ? self.translucencyEffect : nil];
+        }
     }
-    else {
-        [(UIVisualEffectView *)self.translucencyView setEffect:visible ? self.translucencyEffect : nil];
-    }
+    
+    
 }
 
 - (void)updateToImageCropFrame:(CGRect)imageCropframe
@@ -1162,6 +1172,35 @@ typedef NS_ENUM(NSInteger, TOCropViewOverlayEdge) {
         [self rotateImageNinetyDegreesAnimated:NO];
     }
 }
+
+-(void)setAlwaysTranslucent:(BOOL)alwaysTranslucent
+{
+    if (alwaysTranslucent == _alwaysTranslucent) {
+        return;
+    }
+    
+    _alwaysTranslucent = alwaysTranslucent;
+    
+    [self toggleTranslucencyViewVisible:_alwaysTranslucent];
+}
+    
+-(void)setShowOverlayOnly:(BOOL)showOverlayOnly
+{
+    if (showOverlayOnly == _showOverlayOnly) {
+            return;
+    }
+        
+    _showOverlayOnly = showOverlayOnly;
+    
+    if (_showOverlayOnly ==  true) {
+        _overlayView.backgroundColor = [self.backgroundColor colorWithAlphaComponent:0.87f];
+        [self toggleTranslucencyViewVisible:_showOverlayOnly];
+    } else {
+        _overlayView.backgroundColor = [self.backgroundColor colorWithAlphaComponent:0.35f];
+        [self toggleTranslucencyViewVisible:_showOverlayOnly];
+    }
+}
+
 
 #pragma mark - Editing Mode -
 - (void)startEditing
