@@ -1,7 +1,7 @@
 //
 //  TOCropView.h
 //
-//  Copyright 2015-2016 Timothy Oliver. All rights reserved.
+//  Copyright 2015-2017 Timothy Oliver. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to
@@ -89,6 +89,11 @@ typedef NS_ENUM(NSInteger, TOCropViewCroppingStyle) {
  Disable the dynamic translucency in order to smoothly relayout the view
  */
 @property (nonatomic, assign) BOOL simpleRenderMode;
+
+/**
+ When performing manual content layout (such as during screen rotation), disable any internal layout
+ */
+@property (nonatomic, assign) BOOL internalLayoutDisabled;
 
 /**
  A width x height ratio that the crop box will be rescaled to (eg 4:3 is {4.0f, 3.0f})
@@ -186,8 +191,9 @@ typedef NS_ENUM(NSInteger, TOCropViewCroppingStyle) {
  
  @param aspectRatio The aspect ratio (For example 16:9 is 16.0f/9.0f). 'CGSizeZero' will reset it to the image's own ratio
  @param animated Whether the locking effect is animated
+ @param completion a completion block to be called when the locking is complete
  */
-- (void)setAspectRatio:(CGSize)aspectRatio animated:(BOOL)animated;
+- (void)setAspectRatio:(CGSize)aspectRatio animated:(BOOL)animated completion:(void (^ __nullable)())completion;
 
 /**
  Rotates the entire canvas to a 90-degree angle. The default rotation is counterclockwise.
